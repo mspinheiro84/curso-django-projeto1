@@ -7,16 +7,11 @@ from django.shortcuts import render
 
 def home(request):
     """Rota para home."""
-    return render(request, 'recipes/home.html', context={
-        'name': 'Marcelo Pinheiro',
-    })
+    return render(request, 'recipes/home.html')
 
 
 def contato(request):
     """Rota para contato."""
-    return render(request, 'recipes/contato.html')
-
-
-def sobre(request):
-    """Rota para sobre."""
-    return render(request, 'recipes/sobre.html')
+    return render(request, 'recipes/contato.html', context={
+        'name': 'Marcelo Pinheiro',
+    })
