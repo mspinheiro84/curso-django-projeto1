@@ -12,3 +12,8 @@ def home(request):
     })
 
 
+def recipes(request, id):
+    """Rota para home."""
+    return render(request, 'recipes/pages/recipe-view.html', context={
+        'name': 'Marcelo Pinheiro',
+    })
