@@ -1,7 +1,9 @@
 """Importações."""
+from django.http import HttpResponse
 from django.shortcuts import render
 from utils.recipes.factory import make_recipe
 from recipes.models import Recipe
+
 # from django.http import HttpResponse
 
 # Create your views here.
@@ -13,8 +15,13 @@ def category(request, category_id):
         category__id=category_id,
         is_published = True
     ).order_by('-id')
+
+    if not recipes:
+        return HttpResponse(content='Not found', status=404)
+        
     return render(request, 'recipes/pages/category.html', context={
         'recipes': recipes,
+        'title': f'{recipes.first().category.name} | Category'
     })
 
 def home(request):
