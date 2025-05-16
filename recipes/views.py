@@ -1,5 +1,5 @@
 """Importações."""
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 from utils.recipes.factory import make_recipe
 from recipes.models import Recipe
 
@@ -13,7 +13,7 @@ def category(request, category_id):
     recipes = get_list_or_404(
         Recipe.objects.filter(
             category__id=category_id,
-            is_published = True
+            is_published=True
         )
     )        
     return render(request, 'recipes/pages/category.html', context={
@@ -23,7 +23,7 @@ def category(request, category_id):
 
 def home(request):
     recipes = Recipe.objects.filter(
-        is_published = True
+        is_published=True
     ).order_by('-id')
     """Rota para home."""
     return render(request, 'recipes/pages/home.html', context={
@@ -33,10 +33,7 @@ def home(request):
 
 def recipes(request, id):
     """Rota para recipes."""
-    recipe = Recipe.objects.filter(
-            pk=id,
-            is_published = True
-        ).order_by('-id').first()
+    recipe = get_object_or_404(Recipe, pk=id, is_published=True)
     return render(request, 'recipes/pages/recipe-view.html', context={
         'recipe': recipe,
         'is_detail_page': True,
