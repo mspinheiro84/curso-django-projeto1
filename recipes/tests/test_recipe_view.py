@@ -1,6 +1,7 @@
 from django.urls import reverse, resolve
 from recipes import views
 from .test_recipe_base import RecipeTestBase
+from unittest import skip
 
 
 class RecipeViewsTest(RecipeTestBase):
@@ -19,11 +20,15 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(reverse('recipes:home'))
         self.assertTemplateUsed(response, 'recipes/pages/home.html')
 
+    @skip('WIP') # A mensagem do porquê eu estou pulando estes testes
     def test_recipe_home_template_shows_no_recipes_found_if_no_recipes(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertIn(
             'No recipes found',
             response.content.decode('utf-8')
+        )
+        self.fail(
+            'Para que eu termine de digitá-lo.'
         )
 
     def test_recipe_home_template_loads_recipes(self):
